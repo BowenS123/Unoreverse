@@ -15,7 +15,7 @@ Schrijf een programma met naam "UnoReverse" dat bestaat uit een TCP-server en HT
 - ✔️ HTTP client extraheert zuiver de volledige json reactie.
 - ✔️ HTTP client logt de geolocatie in logs.
 - ✔️ HTTP client sluit de verbinding zuiver af.
-- ✔️ TCP server accepteert gegevens van client en logt ze in logs.
+- ❌ TCP server accepteert gegevens van client en logt ze in logs.
 - ✔️ TCP server stuurt zoveel mogelijk gegevens naar de openstaande verbinding.
 - ✔️ TCP server houdt een teller bij hoeveel gegevens succesvol zijn afgeleverd en logt deze bij het sluiten van de verbinding in logs.
 - ✔️ TCP server sluit de verbinding nadat de client de verbinding sluit.

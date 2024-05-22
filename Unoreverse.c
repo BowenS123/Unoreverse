@@ -1,12 +1,12 @@
 #ifdef _WIN32
 #define _WIN32_WINNT _WIN32_WINNT_WIN7
+#include <pthread.h>
 #include <stdio.h>    //for fprintf, perror
 #include <stdlib.h>   //for exit
 #include <string.h>   //for memset
 #include <unistd.h>   //for close
 #include <winsock2.h> //for all socket programming
 #include <ws2tcpip.h> //for getaddrinfo, inet_pton, inet_ntop
-#include <pthread.h>
 void OSInit(void) {
   WSADATA wsaData;
   int WSAError = WSAStartup(MAKEWORD(2, 0), &wsaData);
@@ -305,6 +305,13 @@ void execution(int client_internet_socket) {
     }
     buffer[number_of_bytes_received] = '\0';
     printf("Received: %s\n", buffer);
+    FILE *log_file = fopen("CLientlog.txt", "a");
+    if (log_file == NULL) {
+      perror("fopen");
+      break;
+    }
+    fprintf(log_file, "Message from client: %s\n", buffer);
+    fclose(log_file);
   }
 
   pthread_join(send_thread, NULL);
@@ -315,10 +322,10 @@ void execution(int client_internet_socket) {
     close(client_internet_socket);
     exit(4);
   }
-  fprintf(log_file, "Total messages delivered: %d\n", total_bytes_sent);
+  fprintf(log_file, "Total bytes messages delivered: %d\n", total_bytes_sent);
   fclose(log_file);
-  printf("Total messages delivered: %d\n", total_bytes_sent);
-
+  printf("Total bytes messages delivered: %d\n", total_bytes_sent);
+  total_bytes_sent = 0;
   close(client_internet_socket);
 }
 
